@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 import smtplib
 import sys
+from _ast import Try
 
 
 GMAIL_SMTP_SERVER = "smtp.gmail.com"
 GMAIL_SMTP_PORT = 587
 
 GMAIL_EMAIL = "thallapallikarnakar@gmail.com"
-GMAIL_PASSWORD = "*****"
+GMAIL_PASSWORD = "2015_Tinku"
 
 
 def initialize_smtp_server():
-    print("Initailize")
     '''
     This function initializes and greets the smtp server.
     It logs in using the provided credentials and returns 
@@ -26,7 +26,6 @@ def initialize_smtp_server():
 
 
 def send_thank_you_mail(email):
-    print("Initailize")
     to_email = email
     from_email = GMAIL_EMAIL
     subj = "Thanks for being an active commenter"
@@ -44,7 +43,11 @@ def send_thank_you_mail(email):
     Thank You.""" % email
     content = header + "\n" + msg_body
     smtpserver = initialize_smtp_server()
-    smtpserver.sendmail(from_email, to_email, content)
+    try:
+     smtpserver.sendmail(from_email, to_email, content)
+    except:
+     print("error")
+    print("mail sent to ")
     smtpserver.close()
 
 
@@ -52,5 +55,6 @@ if __name__ == "__main__":
     # for every line of input.
     for email in sys.stdin.readlines():
             send_thank_you_mail(email)
+            sys.exit(1)
 
             
